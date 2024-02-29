@@ -43,7 +43,7 @@ class VK:
                         progress(for_progress,0.01)
         return f"На странице id{self.id}, {len(self.photo)} фото."
     
-class YANDEX_DISK(VK):
+class YANDEX_DISK():
     url_base_ya = "https://cloud-api.yandex.net/"
 
     def __init__(self,qauth_token):
@@ -84,6 +84,11 @@ class YANDEX_DISK(VK):
         else:
             return "Возникла ошибка"
 
+    def loading_all_photo(self,vk_id,name_folders):
+        for date_photo in vk_id.photo:
+            self.loading_photo(vk_id,name_folders,date_photo)
+        return "Загружены все фото с аккаунта вк"
+
     
 my_vk = VK(Token_vk,user_id_vk)
 print(my_vk.photos_get())
@@ -91,7 +96,5 @@ print(my_vk.photos_get())
 my_ya_disk = YANDEX_DISK(Yandex_token)
 print(my_ya_disk.create_folder("Папка для фото"))
 
+print(my_ya_disk.loading_all_photo(my_vk,"Папка для фото"))
 
-print(my_ya_disk.loading_photo(my_vk,"Папка для фото",'2019.05.30'))
-print(my_ya_disk.loading_photo(my_vk,"Папка для фото",'2020.12.23'))
-print(my_ya_disk.loading_photo(my_vk,"Папка для фото",'2018.03.26'))
